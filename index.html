@@ -4,140 +4,46 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Live Code Editor</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.9/codemirror.min.css">
-    <style>
-        body {
-            display: flex;
-            flex-direction: column;
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            height: 100vh;
-        }
-        .editor-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            padding: 10px;
-            background-color: #f0f0f0;
-        }
-        .editor {
-            flex: 1 1 30%;
-            min-width: 300px;
-            border: 1px solid #ccc;
-        }
-        .preview {
-            flex: 1 1 100%;
-            min-height: 300px;
-            border: 1px solid #ccc;
-            margin: 10px;
-        }
-        iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-        .btn-container {
-            text-align: center;
-            margin: 10px 0;
-        }
-        button {
-            padding: 10px 20px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="editor-container">
-        <textarea id="htmlEditor" class="editor" placeholder="HTML Code"></textarea>
-        <textarea id="cssEditor" class="editor" placeholder="CSS Code"></textarea>
-        <textarea id="jsEditor" class="editor" placeholder="JavaScript Code"></textarea>
+    <!-- Header -->
+    <header>
+        <h1>Live Code Editor</h1>
+
+    </header>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Editor Container -->
+        <div class="editor-container">
+            <!-- Tabs for switching between HTML, CSS, and JavaScript -->
+            <div class="tabs">
+                <button class="tab-button active" data-tab="html">HTML</button>
+                <button class="tab-button" data-tab="css">CSS</button>
+                <button class="tab-button" data-tab="js">JavaScript</button>
+            </div>
+
+            <!-- HTML Editor -->
+            <div id="html-editor" class="code-editor active"></div>
+
+            <!-- CSS Editor -->
+            <div id="css-editor" class="code-editor"></div>
+
+            <!-- JavaScript Editor -->
+            <div id="js-editor" class="code-editor"></div>
+        </div>
+
+        <!-- Preview Container -->
+        <div class="preview-container">
+            <div class="preview-header">
+                <button id="popoutBtn" class="popout-btn">Popout Preview</button>
+            </div>
+            <iframe id="preview" class="preview"></iframe>
+        </div>
     </div>
-    <div class="btn-container">
-        <button id="openPreview">Open Preview in New Window</button>
-    </div>
-    <div class="preview">
-        <iframe id="preview"></iframe>
-    </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.9/codemirror.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.9/mode/xml/xml.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.9/mode/css/css.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.9/mode/javascript/javascript.min.js"></script>
-    <script>
-        // Sample code
-        const sampleHTML = `
-<body>
-<h1>A VERY Computational Christmas Quiz</h1>
-<h2>By DigiLearnScot</h2>
-</body>`;
-        const sampleCSS = `
-body {
-    background-color: #f5f5f5; 
-    font-family: Arial, sans-serif; 
-}`;
-        const sampleJS = `
-console.log("Hello, World!");`;
-
-        // Initialize CodeMirror editors
-        const htmlEditor = CodeMirror.fromTextArea(document.getElementById('htmlEditor'), {
-            mode: 'xml',
-            theme: 'default',
-            lineNumbers: true
-        });
-        const cssEditor = CodeMirror.fromTextArea(document.getElementById('cssEditor'), {
-            mode: 'css',
-            theme: 'default',
-            lineNumbers: true
-        });
-        const jsEditor = CodeMirror.fromTextArea(document.getElementById('jsEditor'), {
-            mode: 'javascript',
-            theme: 'default',
-            lineNumbers: true
-        });
-
-        // Set default content
-        htmlEditor.setValue(sampleHTML);
-        cssEditor.setValue(sampleCSS);
-        jsEditor.setValue(sampleJS);
-
-        // Update preview
-        const previewFrame = document.getElementById('preview');
-        const updatePreview = () => {
-            const html = htmlEditor.getValue();
-            const css = `<style>${cssEditor.getValue()}</style>`;
-            const js = `<script>${jsEditor.getValue()}</script>`;
-            const content = `${html}${css}${js}`;
-            previewFrame.contentDocument.open();
-            previewFrame.contentDocument.write(content);
-            previewFrame.contentDocument.close();
-        };
-
-        htmlEditor.on('change', updatePreview);
-        cssEditor.on('change', updatePreview);
-        jsEditor.on('change', updatePreview);
-
-        // Initial preview update
-        updatePreview();
-
-        // Open preview in a new window
-        document.getElementById('openPreview').addEventListener('click', () => {
-            const html = htmlEditor.getValue();
-            const css = `<style>${cssEditor.getValue()}</style>`;
-            const js = `<script>${jsEditor.getValue()}</script>`;
-            const content = `${html}${css}${js}`;
-            const newWindow = window.open();
-            newWindow.document.open();
-            newWindow.document.write(content);
-            newWindow.document.close();
-        });
-    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
