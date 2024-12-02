@@ -5,18 +5,27 @@ htmlEditor.setTheme("ace/theme/dracula");
 htmlEditor.session.setMode("ace/mode/html");
 htmlEditor.setValue(`
 <body>
-  <div class="container">  
-    <h1 id="fact-title">This is a website</h1>
-    <p> By Me</p>  
-    <p id="fact-text"></p>
-    <img id="fact-image" src="https://tinyurl.com/csfact101"> 
-    <div id="button-container">
-      <button id="fact-button">Fact</button>
-      <button id="reset-button">Reset</button>
-    </div>  
-    <p>something can go here</p>
-  </div>
-</body>
+<h1>A VERY Computational Christmas Quiz</h1>
+    <h2>By DigiLearnScot</h2>
+    <div class="quiz-container" id="quizContainer">
+        <div id="questionContainer">
+            <div class="question-number" id="questionNumber"></div>
+            <div class="image-container">
+                <img id="questionImage" src="" alt="Question Image">
+            </div>
+            <div class="question" id="questionText"></div>
+            
+            <ul class="answer-options" id="answerOptions"></ul>
+            <button class="submit-btn" id="nextButton">Next</button>
+        </div>
+    
+        <div class="result-container" id="resultContainer">
+            <div class="result-message" id="resultMessage"></div>
+            <div class="result-list" id="resultList"></div>
+            <button class="submit-btn" id="restartButton">Restart Quiz</button>
+        </div>
+        </div>
+        </body>
 `);
 htmlEditor.setOptions({
     fontSize: "14px",
