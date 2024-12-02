@@ -40,64 +40,118 @@ const cssEditor = ace.edit("css-editor");
 cssEditor.setTheme("ace/theme/dracula");
 cssEditor.session.setMode("ace/mode/css");
 cssEditor.setValue(`
-body {
-  background-color: purple;
-}
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            text-align: center;
+            background-image: url('https://wallpaperaccess.com/full/832010.jpg'); /* Add a festive background */
+            background-size: cover;
+            background-position: center;
+        }
+        h1 {
+            color: #e74c3c;
+            font-size: 2em;
+            margin-top: 20px;
+        }
 
-.container {
-  text-align: center;
-  margin: 30px;
-  background-color: white;
-  border-radius: 0px;
-  border: dotted;
-  border-color: purple;
-  border-width: 3px;
+   #questionImage {
+    width: 100%;             /* Ensure image takes up 100% of its container's width */
+    height: auto;            /* Maintain the aspect ratio */
+    object-fit: contain;     /* Prevent the image from being stretched or cropped */
 }
+        
+        .quiz-container {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            width: 80%;
+            margin: auto;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .question {
+            font-size: 1.2em;
+            margin-bottom: 15px;
+        }
+        .question-number {
+            font-size: 1.2em;
+            color: #2980b9;
+            font-weight: bold;
+        }
+        .answer-options {
+            list-style-type: none;
+            padding: 0;
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .answer-option {
+            background-color: #3498db;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            flex: 1 1 25%;
+            max-width: 100px;
+            text-align: center;
+            margin: 5px;
+        }
+        .answer-option:hover {
+            background-color: red;
+        }
+        .selected {
+            background-color: #f39c12;
+        }
+        .image-container {
+            margin: auto;
+            width:100%;
+        }
+        .submit-btn {
+            background-color: #27ae60;
+            color: white;
+            padding: 15px 25px;
+            border: none;
+            font-size: 1.2em;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        .submit-btn:hover {
+            background-color: #2ecc71;
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+        }
+        .result-message {
+            font-size: 2em;
+            color: #2ecc71;
+        }
+        .result-list {
+            text-align: left;
+            font-size: 1.2em;
+            margin-top: 20px;
+        }
+        .correct {
+            color: green;
+        }
+        .incorrect {
+            color: red;
+        }
 
-#fact-title {
-  font-size: 16px;
-  font-weight: bold;
-  font-family: Arial;
-  color: red;
-}
+        @media (min-width: 768px) {
+    #questionImage {
+        width: 300px;  /* Set the image width to 300px on larger screens */
+        height: auto;  /* Maintain aspect ratio */
+    }
 
-#fact-text {
-  font-family: Arial;
-  font-size: 16pt;
-  margin-bottom: 20px;
-}
-
-#fact-image {
-  max-width: 300px;
-  height: auto;
-  border-radius: 0px;
-  border: solid;
-  border-width: 1px;
-  border-style: solid;
-}
-
-#fact-button {
-  cursor: pointer;
-  padding: 10px 20px;
-  font-size: 16px;
-  background-color: green;
-  color: white;
-  border: none;
-  border-radius: 0px;
-  box-shadow: 5px 5px lightblue;
-  margin: 10px;
-}
-
-#reset-button {
-  cursor: pointer;
-  padding: 10px 20px;
-  font-size: 16px;
-  background-color: darkblue;
-  color: white;
-  border: none;
-  border-radius: 0px;
-  box-shadow: 5px 5px lightblue;
-  margin: 10px;
+    .quiz-container {
+        width: 60%;  /* Set the quiz container width to 60% on larger screens */
+    }
 }
 `);
 cssEditor.setOptions({
