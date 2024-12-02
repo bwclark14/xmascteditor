@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Code Editor</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.12/codemirror.min.css">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+        .tabs {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        .tab {
+            margin: 0 10px;
+            padding: 10px 20px;
+            cursor: pointer;
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .tab.active {
+            background-color: #007bff;
+            color: white;
+        }
+        .editor-container > div {
+            display: none;
+        }
+        .editor-container > div.active {
+            display: block;
+        }
+        iframe {
+            width: 100%;
+            height: 500px;
+            border: 1px solid #ccc;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Live Code Editor</h1>
+    <div class="tabs">
+        <div class="tab active" data-editor="html-editor">HTML</div>
+        <div class="tab" data-editor="css-editor">CSS</div>
+        <div class="tab" data-editor="js-editor">JS</div>
+    </div>
+    <div class="editor-container">
+        <div id="html-editor" class="active">
+            <textarea id="html-code"></textarea>
+        </div>
+        <div id="css-editor">
+            <textarea id="css-code"></textarea>
+        </div>
+        <div id="js-editor">
+            <textarea id="js-code"></textarea>
+        </div>
+    </div>
+    <iframe id="preview"></iframe>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.12/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.12/mode/htmlmixed/htmlmixed.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.12/mode/css/css.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.12/mode/javascript/javascript.min.js"></script>
+    <script>
+        // Initialize CodeMirror editors
+        const htmlEditor = CodeMirror.fromTextArea(document.getElementById('html-code'), { mode: 'htmlmixed', lineNumbers: true });
+        const cssEditor = CodeMirror.fromTextArea(document.getElementById('css-code'), { mode: 'css', lineNumbers: true });
+        const jsEditor = CodeMirror.fromTextArea(document.getElementById('js-code'), { mode: 'javascript', lineNumbers: true });
+
+        // Function to update the preview
+        function updatePreview() {
+            const previewFrame = document.getElementById('preview');
+            const previewContent = `
+                <html>
+                    <head>
+                        <style>${cssEditor.getValue()}</style>
+                    </head>
+                    <body>
+                        ${htmlEditor.getValue()}
+                        <script>${jsEditor.getValue()}<\/script>
+                    </body>
+                </html>
+            `;
+            const previewDocument = previewFrame.contentDocument || previewFrame.contentWindow.document;
+            previewDocument.open();
+            previewDocument.write(previewContent);
+            previewDocument.close();
+        }
+
+        // Add event listeners to update preview on editor changes
+        [htmlEditor, cssEditor, jsEditor].forEach(editor => editor.on('change', updatePreview));
+
+        // Initial preview render
+        updatePreview();
+
+        // Tab switching functionality
+        const tabs = document.querySelectorAll('.tab');
+        const editorContainers = document.querySelectorAll('.editor-container > div');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remove active class from all tabs and editors
+                tabs.forEach(t => t.classList.remove('active'));
+                editorContainers.forEach(editor => editor.classList.remove('active'));
+
+                // Add active class to clicked tab and corresponding editor
+                tab.classList.add('active');
+                const targetEditor = document.getElementById(tab.dataset.editor);
+                targetEditor.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>
