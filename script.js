@@ -152,6 +152,7 @@ cssEditor.setValue(`
     .quiz-container {
         width: 60%;  /* Set the quiz container width to 60% on larger screens */
     }
+    }
 
 `);
 cssEditor.setOptions({
@@ -387,6 +388,7 @@ jsEditor.setOptions({
     tabSize: 2
 });
 
+
 // Function to update preview
 function updatePreview() {
     const htmlContent = htmlEditor.getValue();
@@ -396,7 +398,11 @@ function updatePreview() {
 
     const previewFrame = document.getElementById('preview');
     previewFrame.srcdoc = fullContent; // Inject the code into the iframe
+
+    // Save the current editor content to localStorage on each preview update
+    saveContentToLocalStorage();
 }
+
 
 // Initial preview update
 updatePreview();
@@ -427,18 +433,7 @@ function saveContentToLocalStorage() {
     localStorage.setItem("jsContent", jsEditor.getValue());
 }
 
-function updatePreview() {
-    const htmlContent = htmlEditor.getValue();
-    const cssContent = `<style>${cssEditor.getValue()}</style>`;
-    const jsContent = `<script>${jsEditor.getValue()}</script>`;
-    const fullContent = htmlContent + cssContent + jsContent;
 
-    const previewFrame = document.getElementById('preview');
-    previewFrame.srcdoc = fullContent; // Inject the code into the iframe
-
-    // Save the current editor content to localStorage on each preview update
-    saveContentToLocalStorage();
-}
 
 // Listen for changes in the editors to update preview and save content dynamically
 htmlEditor.session.on('change', updatePreview);
