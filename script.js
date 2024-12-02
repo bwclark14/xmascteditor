@@ -377,7 +377,7 @@ function showResults() {
         document.getElementById("restartButton").addEventListener("click", restartQuiz);
 
         loadQuestion();
-});
+`);
 
 jsEditor.setOptions({
     fontSize: "14px",
