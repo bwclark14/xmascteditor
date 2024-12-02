@@ -379,3 +379,108 @@ function showResults() {
         loadQuestion();
 });
 
+jsEditor.setOptions({
+    fontSize: "14px",
+    showPrintMargin: false,
+    wrap: true,
+    showLineNumbers: true,
+    tabSize: 2
+});
+
+// Function to update preview
+function updatePreview() {
+    const htmlContent = htmlEditor.getValue();
+    const cssContent = `<style>${cssEditor.getValue()}</style>`;
+    const jsContent = `<script>${jsEditor.getValue()}</script>`;
+    const fullContent = htmlContent + cssContent + jsContent;
+
+    const previewFrame = document.getElementById('preview');
+    previewFrame.srcdoc = fullContent; // Inject the code into the iframe
+}
+
+// Initial preview update
+updatePreview();
+
+// Listen for changes in the editors to update preview dynamically
+htmlEditor.session.on('change', updatePreview);
+cssEditor.session.on('change', updatePreview);
+jsEditor.session.on('change', updatePreview);
+// Tab switching logic
+const tabButtons = document.querySelectorAll(".tab-button");
+const codeEditors = document.querySelectorAll(".code-editor");
+
+tabButtons.forEach(button => {
+  button.addEventListener("click", () => {
+    // Remove 'active' class from all buttons and editors
+    tabButtons.forEach(btn => btn.classList.remove("active"));
+    codeEditors.forEach(editor => editor.classList.remove("active"));
+
+    // Add 'active' class to the clicked button and the corresponding editor
+    button.classList.add("active");
+    document.getElementById(button.getAttribute("data-tab") + "-editor").classList.add("active");
+  });
+});
+
+function saveContentToLocalStorage() {
+    localStorage.setItem("htmlContent", htmlEditor.getValue());
+    localStorage.setItem("cssContent", cssEditor.getValue());
+    localStorage.setItem("jsContent", jsEditor.getValue());
+}
+
+function updatePreview() {
+    const htmlContent = htmlEditor.getValue();
+    const cssContent = `<style>${cssEditor.getValue()}</style>`;
+    const jsContent = `<script>${jsEditor.getValue()}</script>`;
+    const fullContent = htmlContent + cssContent + jsContent;
+
+    const previewFrame = document.getElementById('preview');
+    previewFrame.srcdoc = fullContent; // Inject the code into the iframe
+
+    // Save the current editor content to localStorage on each preview update
+    saveContentToLocalStorage();
+}
+
+// Listen for changes in the editors to update preview and save content dynamically
+htmlEditor.session.on('change', updatePreview);
+cssEditor.session.on('change', updatePreview);
+jsEditor.session.on('change', updatePreview);
+
+
+// Load saved content if available
+function loadContentFromLocalStorage() {
+    const savedHtml = localStorage.getItem("htmlContent");
+    const savedCss = localStorage.getItem("cssContent");
+    const savedJs = localStorage.getItem("jsContent");
+
+    if (savedHtml) htmlEditor.setValue(savedHtml, -1); // The '-1' avoids moving cursor to start
+    if (savedCss) cssEditor.setValue(savedCss, -1);
+    if (savedJs) jsEditor.setValue(savedJs, -1);
+}
+
+// Call the function to load saved content when the page loads
+window.addEventListener("load", loadContentFromLocalStorage);
+
+
+document.getElementById("popoutBtn").addEventListener("click", () => {
+    const htmlContent = htmlEditor.getValue();
+    const cssContent = `<style>${cssEditor.getValue()}</style>`;
+    const jsContent = `<script>${jsEditor.getValue()}</script>`;
+    const fullContent = `
+        <html>
+        <head><meta charset="UTF-8"><title>Live Preview</title></head>
+        <body>${htmlContent}${cssContent}${jsContent}</body>
+        </html>
+    `;
+
+    // Create a new Blob containing the HTML content, set type to HTML
+    const previewBlob = new Blob([fullContent], { type: 'text/html' });
+    const previewUrl = URL.createObjectURL(previewBlob);
+
+    // Open new window with Blob URL
+    const popoutWindow = window.open(previewUrl, '_blank');
+    if (!popoutWindow) {
+        alert("Please allow pop-ups to open the preview.");
+    }
+});
+
+
