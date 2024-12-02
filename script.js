@@ -152,7 +152,7 @@ cssEditor.setValue(`
     .quiz-container {
         width: 60%;  /* Set the quiz container width to 60% on larger screens */
     }
-}
+
 `);
 cssEditor.setOptions({
     fontSize: "14px",
