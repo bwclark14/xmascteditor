@@ -459,3 +459,44 @@ function updatePreview() {
 document.getElementById("shareBtn").addEventListener("click", updateUrl);
 
 */
+
+// Add download functionality
+document.getElementById("downloadBtn").addEventListener("click", () => {
+    const htmlContent = htmlEditor.getValue();
+    const cssContent = cssEditor.getValue();
+    const jsContent = jsEditor.getValue();
+
+    // Create downloadable files
+    const createDownload = (filename, content) => {
+        const blob = new Blob([content], { type: "text/plain" });
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.download = filename;
+        link.click();
+    };
+
+    createDownload("index.html", htmlContent);
+    createDownload("styles.css", cssContent);
+    createDownload("script.js", jsContent);
+});
+
+// Add upload functionality
+document.getElementById("uploadInput").addEventListener("change", (event) => {
+    const files = event.target.files;
+
+    Array.from(files).forEach((file) => {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            const content = e.target.result;
+            if (file.name.endsWith(".html")) {
+                htmlEditor.setValue(content, -1); // Load into HTML editor
+            } else if (file.name.endsWith(".css")) {
+                cssEditor.setValue(content, -1); // Load into CSS editor
+            } else if (file.name.endsWith(".js")) {
+                jsEditor.setValue(content, -1); // Load into JavaScript editor
+            }
+        };
+        reader.readAsText(file);
+    });
+});
+
