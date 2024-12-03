@@ -281,10 +281,11 @@ function showResults() {
 function restartQuiz() {
     currentQuestionIndex = 0;
     userAnswers = [];
-    document.getElementById("resultContainer").style.display = 'none';
-    document.getElementById("quizContainer").style.display = 'block';
-    loadQuestion();
+    document.getElementById("resultContainer").style.display = 'none'; // Hide result container
+    document.getElementById("questionContainer").style.display = 'block'; // Show question container
+    loadQuestion(); // Load the first question
 }
+
 
 document.getElementById("nextButton").addEventListener("click", nextQuestion);
 document.getElementById("restartButton").addEventListener("click", restartQuiz);
