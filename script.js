@@ -167,7 +167,122 @@ const jsEditor = ace.edit("js-editor");
 jsEditor.setTheme("ace/theme/dracula");
 jsEditor.session.setMode("ace/mode/javascript");
 jsEditor.setValue(`
-js here
+const questions = [
+    { 
+        question: "Santa's elves need to pack 12 gifts into 3 gift boxes equally. How many gifts will go in each box?", 
+        options: ["3", "4", "5", "6"], 
+        correct: "4",
+        image: "1.png"
+    },
+    { 
+        question: "You are creating snowflake decorations. Each snowflake takes 6 cuts and 4 folds. How many folds will you make if you create 5 snowflakes?", 
+        options: ["20", "24", "30", "40"], 
+        correct: "20",
+        image: "2.png"
+    },
+    { 
+        question: "Rudolph the Red-Nosed Reindeer stands first in line, followed by Dasher and Blitzen. If Blitzen moves to the front, what is the new order?", 
+        options: ["Dasher, Blitzen, Rudolph", "Blitzen, Rudolph, Dasher", "Rudolph, Blitzen, Dasher", "Blitzen, Dasher, Rudolph"], 
+        correct: "Blitzen, Rudolph, Dasher",
+        image: "3.png"
+    },
+    { 
+        question: "You have 3 ornaments: a star, a bell, and a candy cane. How many unique combinations of these ornaments can be made?", 
+        options: ["2", "4", "6", "8"], 
+        correct: "6",
+        image: "4.png"
+    },
+    { 
+        question: "Santa’s cookies are placed in 12 bags. If each bag has 8 cookies, how many cookies are there in total?", 
+        options: ["80", "88", "90", "96"], 
+        correct: "96",
+        image: "5.png"
+    }
+];
+
+let currentQuestionIndex = 0;
+let userAnswers = [];
+
+function loadQuestion() {
+    const questionData = questions[currentQuestionIndex];
+    const questionNumber = document.getElementById("questionNumber");
+    const questionText = document.getElementById("questionText");
+    const questionImage = document.getElementById("questionImage");
+    const answerOptions = document.getElementById("answerOptions");
+
+    questionNumber.textContent = \`Question \${currentQuestionIndex + 1}\`;
+    questionText.textContent = questionData.question;
+    questionImage.src = questionData.image;
+
+    answerOptions.innerHTML = "";
+    questionData.options.forEach(option => {
+        const li = document.createElement("li");
+        li.textContent = option;
+        li.classList.add("answer-option");
+        li.addEventListener("click", () => selectAnswer(option, li));
+        answerOptions.appendChild(li);
+    });
+
+    document.getElementById("nextButton").disabled = true;
+}
+
+function selectAnswer(option, element) {
+    const options = document.querySelectorAll('.answer-option');
+    options.forEach(opt => opt.classList.remove('selected'));
+    element.classList.add('selected');
+
+    userAnswers[currentQuestionIndex] = option;
+    document.getElementById("nextButton").disabled = false;
+}
+
+function nextQuestion() {
+    currentQuestionIndex++;
+    if (currentQuestionIndex < questions.length) {
+        loadQuestion();
+    } else {
+        showResults();
+    }
+}
+
+function showResults() {
+    document.getElementById("questionContainer").style.display = 'none';
+    const resultContainer = document.getElementById("resultContainer");
+    const resultMessage = document.getElementById("resultMessage");
+    const resultList = document.getElementById("resultList");
+
+    resultContainer.style.display = 'block';
+
+    let correctAnswers = 0;
+    resultList.innerHTML = '';  
+
+    questions.forEach((question, index) => {
+        const listItem = document.createElement("div");
+        if (userAnswers[index] === question.correct) {
+            correctAnswers++;
+            listItem.classList.add("correct");
+            listItem.textContent = \`Q\${index + 1}: Correct!\`;
+        } else {
+            listItem.classList.add("incorrect");
+            listItem.textContent = \`Q\${index + 1}: Incorrect.\`;
+        }
+        resultList.appendChild(listItem);
+    });
+
+    resultMessage.textContent = \`You got \${correctAnswers} out of \${questions.length} correct!\`;
+}
+
+function restartQuiz() {
+    currentQuestionIndex = 0;
+    userAnswers = [];
+    document.getElementById("resultContainer").style.display = 'none';
+    document.getElementById("quizContainer").style.display = 'block';
+    loadQuestion();
+}
+
+document.getElementById("nextButton").addEventListener("click", nextQuestion);
+document.getElementById("restartButton").addEventListener("click", restartQuiz);
+
+loadQuestion();
 `);
 jsEditor.setOptions({
     fontSize: "14px",
