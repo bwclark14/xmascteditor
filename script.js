@@ -41,118 +41,137 @@ cssEditor.setTheme("ace/theme/dracula");
 cssEditor.session.setMode("ace/mode/css");
 cssEditor.setValue(`
 body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f5f5f5;
-            margin: 0;
-            padding: 0;
-            color: #333;
-            text-align: center;
-            background-image: url('https://wallpaperaccess.com/full/832010.jpg'); /* Add a festive background */
-            background-size: cover;
-            background-position: center;
-        }
-        h1 {
-            color: #e74c3c;
-            font-size: 2em;
-            margin-top: 20px;
-        }
-
-   #questionImage {
-    width: 100%;             /* Ensure image takes up 100% of its container's width */
-    height: auto;            /* Maintain the aspect ratio */
-    object-fit: contain;     /* Prevent the image from being stretched or cropped */
+    font-family: 'Arial', sans-serif;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 0;
+    color: #333;
+    text-align: center;
+    background-image: url('https://www.pixelstalk.net/wp-content/uploads/2015/10/merry-christmas-hd-wallpapers-2015.jpg'); /* Add a festive background */
+    background-size: cover;
+    background-position: center;
 }
-        
-        .quiz-container {
-            background-color: rgba(255, 255, 255, 0.9);
-            padding: 20px;
-            width: 80%;
-            margin: auto;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        .question {
-            font-size: 1.2em;
-            margin-bottom: 15px;
-        }
-        .question-number {
-            font-size: 1.2em;
-            color: #2980b9;
-            font-weight: bold;
-        }
-        .answer-options {
-            list-style-type: none;
-            padding: 0;
-            display: flex;
-            justify-content: space-between;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-        .answer-option {
-            background-color: #3498db;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-            flex: 1 1 25%;
-            max-width: 100px;
-            text-align: center;
-            margin: 5px;
-        }
-        .answer-option:hover {
-            background-color: red;
-        }
-        .selected {
-            background-color: #f39c12;
-        }
-        .image-container {
-            margin: auto;
-            width:100%;
-        }
-        .submit-btn {
-            background-color: #27ae60;
-            color: white;
-            padding: 15px 25px;
-            border: none;
-            font-size: 1.2em;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-top: 20px;
-        }
-        .submit-btn:hover {
-            background-color: #2ecc71;
-        }
-        .result-container {
-            display: none;
-            margin-top: 30px;
-        }
-        .result-message {
-            font-size: 2em;
-            color: #2ecc71;
-        }
-        .result-list {
-            text-align: left;
-            font-size: 1.2em;
-            margin-top: 20px;
-        }
-        .correct {
-            color: green;
-        }
-        .incorrect {
-            color: red;
-        }
 
-        @media (min-width: 768px) {
+h1 {
+    color: white;
+    font-size: 2em;
+    margin-top: 20px;
+}
+
+h2 {
+    color: white;
+}
+
+#questionImage {
+    width: 100%;
+    height: auto;
+}
+
+.quiz-container {
+    background-color: rgba(250, 250, 250, 0.7);
+    padding: 20px;
+    width: 80%;
+    margin: auto;
+    border-radius: 10px;
+    box-shadow: 0 0 10px black;
+}
+
+.question {
+    font-size: 1.2em;
+    margin-bottom: 15px;
+}
+
+.question-number {
+    font-size: 1.2em;
+    color: black;
+    font-weight: bold;
+}
+
+.answer-options {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.answer-option {
+    background-color: green;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    flex: 1 1 25%;
+    max-width: 100px;
+    text-align: center;
+    margin: 5px;
+}
+
+.answer-option:hover {
+    background-color: purple;
+}
+
+.selected {
+    background-color: red;
+}
+
+.image-container {
+    margin: auto;
+    width: 100%;
+}
+
+.submit-btn {
+    background-color: blue;
+    color: white;
+    padding: 15px 25px;
+    border: none;
+    font-size: 1.2em;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.submit-btn:hover {
+    background-color: darkgreen;
+}
+
+.result-container {
+    display: none;
+    margin-top: 30px;
+}
+
+.result-message {
+    font-size: 2em;
+    color: #2ecc71;
+}
+
+.result-list {
+    text-align: left;
+    font-size: 1.2em;
+    margin-top: 20px;
+}
+
+.correct {
+    color: green;
+}
+
+.incorrect {
+    color: red;
+}
+
+@media (min-width: 768px) {
     #questionImage {
-        width: 300px;  /* Set the image width to 300px on larger screens */
-        height: auto;  /* Maintain aspect ratio */
+        width: 300px; /* Set the image width to 300px on larger screens */
+        height: auto; /* Maintain aspect ratio */
     }
 
     .quiz-container {
-        width: 60%;  /* Set the quiz container width to 60% on larger screens */
+        width: 60%; /* Set the quiz container width to 60% on larger screens */
     }
 }
+
 `);
 cssEditor.setOptions({
     fontSize: "14px",
@@ -168,7 +187,6 @@ jsEditor.setTheme("ace/theme/dracula");
 jsEditor.session.setMode("ace/mode/javascript");
 jsEditor.setValue(`
 const questions = [
-    const questions = [
     { 
         question: "Your question can go here - eg what is 5 + 6", 
         options: ["9", "10", "11", "12"], 
