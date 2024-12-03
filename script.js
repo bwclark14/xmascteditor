@@ -168,35 +168,24 @@ jsEditor.setTheme("ace/theme/dracula");
 jsEditor.session.setMode("ace/mode/javascript");
 jsEditor.setValue(`
 const questions = [
+    const questions = [
     { 
-        question: "Santa's elves need to pack 12 gifts into 3 gift boxes equally. How many gifts will go in each box?", 
-        options: ["3", "4", "5", "6"], 
-        correct: "4",
-        image: "1.png"
+        question: "Your question can go here - eg what is 5 + 6", 
+        options: ["9", "10", "11", "12"], 
+        correct: "11",
+        image: "https://www.newdoggy.com/wp-content/uploads/2015/09/vet1.png"
     },
     { 
-        question: "You are creating snowflake decorations. Each snowflake takes 6 cuts and 4 folds. How many folds will you make if you create 5 snowflakes?", 
-        options: ["20", "24", "30", "40"], 
-        correct: "20",
-        image: "2.png"
+        question: "Another question here - eg What is the capital of France?", 
+        options: ["Paris", "Bordeux", "Nice", "Lyon"], 
+        correct: "Paris",
+        image: "https://www.guideoftheworld.com/wp-content/uploads/map/france_cities_map.jpg"
     },
     { 
         question: "Rudolph the Red-Nosed Reindeer stands first in line, followed by Dasher and Blitzen. If Blitzen moves to the front, what is the new order?", 
         options: ["Dasher, Blitzen, Rudolph", "Blitzen, Rudolph, Dasher", "Rudolph, Blitzen, Dasher", "Blitzen, Dasher, Rudolph"], 
         correct: "Blitzen, Rudolph, Dasher",
-        image: "3.png"
-    },
-    { 
-        question: "You have 3 ornaments: a star, a bell, and a candy cane. How many unique combinations of these ornaments can be made?", 
-        options: ["2", "4", "6", "8"], 
-        correct: "6",
-        image: "4.png"
-    },
-    { 
-        question: "Santa’s cookies are placed in 12 bags. If each bag has 8 cookies, how many cookies are there in total?", 
-        options: ["80", "88", "90", "96"], 
-        correct: "96",
-        image: "5.png"
+        image: "https://cdn2.vectorstock.com/i/1000x1000/66/56/christmas-card-with-three-happy-reindeer-vector-6896656.jpg"
     }
 ];
 
